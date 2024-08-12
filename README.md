@@ -2,7 +2,7 @@
 ### 1. Vue.js란?
 * Vue.js는 Google Creative Lab에서 에반 유(Evan you)가 2013년 12월에 웹 애플리케이션의 UI를 빠르게 개발하기 위해서 만들었다.
 * Vue.js는 다른 라이브러리, 프레임워크에 비해 배우기 쉽고 템플릿을 최대한 활용해서 개발할 수 있으므로 이식성과 생산성이 높다.
-* Vue.js는 MVVM 패턴을 따르고 있으며 React와 마찬가지로 가상 DOM을 지원하므로 빠른 UI 렌더링 성능을 제공한다.
+* Vue.js는 MVVM 패턴을 따르고 있으며 가상 DOM을 지원하므로 빠른 UI 렌더링 성능을 제공한다.
 * 또한 `SPA(Single Page Application)` 아키텍처 구성을 위해 필요한 라우터(Router)기능도 효과적으로 지원한다.
 ### 2. 개발 환경 설정
 * Node.js 홈페이지(https://nodejs.org/en/download) 접속 후 사용 중인 OS에 맞는 Installer를 다운로드한다.
