@@ -126,7 +126,7 @@
   ```html
   <span v-once>{{message}}</span>
   ```
-## 컴포넌트 옵션(Otions)
+## 컴포넌트 옵션(Options)
 ### 1. 데이터(data)
 * `data` 옵션은 컴포넌트가 관리하고 추적해야 할 데이터를 등록할 때 사용한다.
   ```html
