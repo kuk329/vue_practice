@@ -22,6 +22,25 @@
     <Sender/>
 
     <Receiver/>
+
+    <h3>4. 슬롯(Slot)</h3>
+    <p>
+      부모 컴포넌트에서 자식 컴포넌트로 템플릿 정보를 전달하는 방법을 제공한다.
+    </p>
+
+    <SlotTest/>
+
+    <h3>5. 동적 컴포넌트</h3>
+    <p>
+      동일한 위치에 여러 컴포넌트를 표현할 수 있는 방법을 제공한다.
+    </p>
+
+    <DynamicTest/>
+
+    <h3>6. provide, inject를 이용한 공통 데이터 사용</h3>
+
+    <SongList :songs="songs"/>
+
     
   </div>
 </template>
@@ -32,6 +51,9 @@
   import InputName from './components/InputName.vue';  
   import Sender from './components/Sender.vue';
   import Receiver from './components/Receiver.vue';
+  import SlotTest from './components/SlotTest.vue';
+  import DynamicTest from './components/DynamicTest.vue';
+  import SongList from './components/SongList.vue';
 
   export default {
     name: 'App',
@@ -39,7 +61,10 @@
       CheckboxItem,
       InputName,
       Sender,
-      Receiver
+      Receiver,
+      SlotTest,
+      DynamicTest,
+      SongList
     },
     data() {
       return {
@@ -53,7 +78,12 @@
           new Student('S003', '이몽룡', false),
           new Student('S004', '성춘향', false)
         ],
-        name: ''
+        name: '',
+        songs: [
+          {id: 1, title:'Supernova', done: true},
+          {id: 2, title:'클락션', done: false},
+          {id: 3, title:'How Sweet', done: false}
+        ]
       }
     },
     methods: {
@@ -70,9 +100,17 @@
         student.checked = e.checked;
       }
     },
+    provide() {
+      return {
+        icons: {
+          checked: 'check',
+          unchecked: 'close'
+        }
+      };
+    }
   }
 </script>
 
-<style scoped>
-
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,200,0,0');
 </style>
