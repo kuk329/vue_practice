@@ -380,3 +380,73 @@
     }
   </script>
   ```
+## vue-router를 이용한 라우팅
+### 1. vue-router
+* 웹 애플리케이션에서 라우팅이라는 개념은 사용자가 요청한 URL에 따라 알맞은 페이지를 보여주는 것을 의미한다.
+* 사용자가 요청한 URI 경로에 따라 각각 다른 화면이 렌더링 되도록 하기 위해서 Vue.js에서는 `vue-router` 라이브러리를 이용한다.
+  ```bash
+  > npm install vue-router@4
+  ```
+### 2. vue-router의 사용법
+* `vue-router` 라이브러리의 `createRouter()` 함수를 호출해 `router` 객체를 생성한다.
+  ```js
+  import { createRouter, createWebHistory } from 'vue-router';
+
+  const router = createRouter({
+    // 속성에는 라우터가 사용할 라우팅 모드 지정 (HTML 5 모드)
+    history: createWebHistory(),
+    // 요청 경로에 따라 렌더링 할 컴포넌트 지정
+    routes: [
+      {path: '/', component: Home},
+      {path: '/about', component: About},
+      // 실행에 필요한 파라미터 값을 포함한 URI 경로 설정
+      {path: '/members/:id', component: Members}
+    ]
+  });
+
+  export default router;
+  ```
+* 생성한 `router` 객체는 애플리케이션 인스턴스에 등록해야 한다.
+  ```js
+  import { createApp } from 'vue';
+  import App from './App.vue';
+  import router from './router';
+
+  const app = createApp(App);
+
+  app.use(router);
+  app.mount('#app');
+  ```
+* `RouterView` 컴포넌트를 사용해 `router` 객체의 각 경로별 컴포넌트를 렌더링 할 위치를 지정한다.
+* 화면 전환을 위한 링크를 만들고 싶다면 `RouterLink` 컴포넌트를 사용한다.
+  ```html
+  <template>
+    <div>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+
+      <RouterView></RouterView>
+    </div>
+  </template>
+  ```
+### 3. router 객체와 currentRoute 객체
+* 애플리케이션 인스턴스에 `router`를 주입하면 모든 컴포넌트 트리에서 `router` 객체와 `currentRoute` 객체를 이용할 수 있다.
+  ```html
+  <script setup>
+    import {useRouter, useRoute} from 'vue-router';
+    
+    const route = useRouter();
+    const currentRoute = useRoute();
+  </script>
+  ```
+* `router` 객체의 주요 메소드
+  * `go(n)` 메소드는 `n` 만큼 브라우저 히스토리를 이용해 이동한다.
+  * `back()` 메소드는 `go(-1)`과 같다.
+  * `forward()` 메소드는 `go(1)`과 같다.
+  * `push(to)` 메소드는 지정된 경로로 이동하고 브라우저 히스토리에 이동 경로를 추가한다.
+  * `replace(to)` 메소드는 지정된 경로로 이동하지만 브라우저 히스토리에 새롭게 추가하지 않는다.
+* `currentRoute` 객체의 주요 속성
+  * `fullpath` 속성은 전체 요청 경로를 담고 있다.
+  * `params` 속성은 URI 경로에 동적으로 전달된 파라미터 정보를 담고 있다.
+  * `path` 속성은 요청 URI 경로를 담고 있다.
+  * `query` 속성은 쿼리 스트링 정보를 담고 있다.
