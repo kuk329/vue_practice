@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Home from '@/pages/Home.vue'
+import Departments from '@/pages/Departments.vue'
+import DepartmentDetail from '@/pages/DepartmentDetail.vue'
 
 const router = createRouter({
   // HTML 5 모드
@@ -9,7 +12,7 @@ const router = createRouter({
     {path: '/', component: Home},
     {path: '/departments', component: Departments},
     // 동적 라우트
-    {path: '/departments/:id', component: DepartmentDetail}
+    {path: '/departments/:no', component: DepartmentDetail}
   ]
 })
 
