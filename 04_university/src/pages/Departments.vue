@@ -2,7 +2,8 @@
     <div>
         <h2>학과 목록 조회</h2>
 
-        <DepartmentList :departments="departments"/>
+        <DepartmentList :departments="departments" @delete-department="deleteDepartment"
+            @item-click="itemClick"/>
         <PageNation :startPage="startPage" :currentPage="currentPage" :endPage="endPage"
          @change-page="changePage"/>
 
@@ -96,10 +97,6 @@
              endPage.value = endPage.value > maxPage.value ? maxPage.value : endPage.value
 
 
-
-
-
-
         }catch(err){ // 예외 발생시 해당 예외를 받아서 출력
 
             console.log(err);
@@ -118,10 +115,40 @@
         }
     }
 
+    const deleteDepartment = async(departmentNo)=>{
+     //   console.log(departmentNo);
+
+        try{
+            const res = await apiClient.delete(`/departments/${departmentNo}`);
+
+            if(res.data.code=== 200){
+                alert('정상적으로 삭제되었습니다.');
+                fetchDepartments(currentPage.value);
+
+            }else if(res.data.code==404){
+                alert('존재하지 않는 학과입니다.');
+            }else{
+                alert('학과 삭제를 실패했습니다.');
+            }
+
+
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+
+    const itemClick = (departmenetNo)=>{
+      //  console.log(departmenetNo);
+        router.push({name:'departments/no',params:{no:departmentNo}});
+    }
+
     watch(currentRoute,()=>{
-        currentPage.value = ref(Number(currentRoute.query.page) || 1);
+        currentPage.value = parseInt(currentRoute.query.page) || 1;
         fetchDepartments(currentPage.value);
     });
+
+    
 </script>
 
 <style scoped>
