@@ -3,7 +3,8 @@
         <h2>학과 목록 조회</h2>
 
         <DepartmentList :departments="departments"/>
-        <PageNation :startPage="startPage"/>
+        <PageNation :startPage="startPage" :currentPage="currentPage" :endPage="endPage"
+         @change-page="changePage"/>
 
     </div>
 </template>
@@ -11,21 +12,22 @@
 
 <script setup>
     import apiClient from '@/api';
-    import {ref, onMounted} from 'vue';
+    import {ref, onMounted,watch} from 'vue';
     import DepartmentList from "@/components/DepartmentList.vue";
-    import {useRoute} from 'vue-router';
+    import {useRoute, useRouter} from 'vue-router';
     import PageNation from '@/components/PageNation.vue';
 
     const departments = ref([]);
-    const currenetRoute = useRoute();
+    const currentRoute = useRoute();
+    const router = useRouter();
    
 
     // 페이지네이션을 위한 데이터
-    const currentPage = ref(Number(currenetRoute.query.page) || 1);
+    const currentPage = ref(Number(currentRoute.query.page) || 1);
     const startPage = ref(0); // 페이징 된 페이지 중에 시작 페이지
     const endPage = ref(0); // 페이징 된 페이지 중 마지막 페이지
     const maxPage = ref(0); // 전체 페이지 중 마지막 페이지
-    const pageLimit = 10; // 한 페이지에 보여지는 페이지 수  (변할 값이 아니므로 그냥 변수로 선언)
+    const pageLimit = 5; // 한 페이지에 보여지는 페이지 수  (변할 값이 아니므로 그냥 변수로 선언)
     const listLimit = 10; // 한 페이지에 표시될 리스트의 수  (변할 값이 아니므로 그냥 변수로 선언)
 
     // console.log(currentPage.value);
@@ -108,6 +110,18 @@
     onMounted(()=>{
         fetchDepartments(currentPage.value);
     })
+
+    const changePage = (page)=>{
+        console.log(page);
+        if(page>=1 && page<=maxPage.value){
+            router.push({name:'departments',query:{page:page}});
+        }
+    }
+
+    watch(currentRoute,()=>{
+        currentPage.value = ref(Number(currentRoute.query.page) || 1);
+        fetchDepartments(currentPage.value);
+    });
 </script>
 
 <style scoped>
