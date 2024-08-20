@@ -29,7 +29,7 @@
             if(response.data.code===201){
                 alert("정상적으로 등록되었습니다.");
 
-                router.push({name:"departments"});
+                router.push({name:"departments/no",params:{no:response.data.result.no}});
             }
 
         }catch(err){

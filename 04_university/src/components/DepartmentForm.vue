@@ -42,7 +42,7 @@ const submitClick = ()=>{
     emit('form-submit',formData.value);
 }
 
-watch(props.initFormData,
+watch(()=>props.initFormData, // 반응성이 없는 데이터를 감시하려면 getter 함수를 만들어서 return 해야됨.
     (newFormData)=>{
         formData.value = {...newFormData}; // 구조 분해 할당
     },

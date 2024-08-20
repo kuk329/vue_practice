@@ -138,7 +138,7 @@
     }
 
 
-    const itemClick = (departmenetNo)=>{
+    const itemClick = (departmentNo)=>{
       //  console.log(departmenetNo);
         router.push({name:'departments/no',params:{no:departmentNo}});
     }
